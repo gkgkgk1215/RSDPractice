@@ -17,7 +17,7 @@
 
   <link name="base" >
     <visual>
-      <origin xyz="0 -0.02 0" rpy="0 0 0"/>
+      <origin xyz="0 0.02 0" rpy="0 0 3.14159265359"/>
       <geometry>
         <mesh filename="package://omni_description/meshes/base.stl" />
       </geometry>
@@ -28,7 +28,7 @@
   <joint name="m1" type="revolute" >
     <parent link="base" />
     <child link="torso" />
-    <origin xyz="0 0 0.09" rpy="0 0 0" />
+    <origin xyz="0 0 0.09" rpy="0 0 3.14159265359" />
     <axis xyz="0 0 -1" />
     <limit lower="-0.98" upper="0.98" velocity="100" effort="5" />
   </joint>
@@ -118,14 +118,14 @@
   <joint name="m6" type="revolute" >
     <parent link="tip" />
     <child link="stylus" />
-    <origin xyz="0 -0.023 0" rpy="3.14159 3.14159 0" />
+    <origin xyz="0 0 0" rpy="3.14159 3.14159 0" />
     <axis xyz="0 1 0" />
     <limit lower="-2.58" upper="2.58" velocity="100" effort="5" />
   </joint>
 
   <link name="stylus" >
     <visual>
-      <origin xyz="0 -0.033 0" rpy="1.5707 1.5707 0"/>
+      <origin xyz="0 -0.01 0" rpy="1.5707 1.5707 0"/>
       <geometry>
 	<mesh filename="package://omni_description/meshes/pen.stl" />
       </geometry>
