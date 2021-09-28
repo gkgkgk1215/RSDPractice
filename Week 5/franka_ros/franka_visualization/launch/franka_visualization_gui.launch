@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
 
 <launch>
+  <arg name="load_gripper" default="true" />
   <param name="rate" value="100" />
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/urdf/panda-gazebo.urdf" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/robots/panda_arm.urdf.xacro hand:=$(arg load_gripper)" />
   <node name="joint_state_publisher_panda" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
   <node name="robot_state_publisher_panda" pkg="robot_state_publisher" type="robot_state_publisher" />
   <node pkg="rviz" type="rviz" output="screen" name="rviz_panda" args="-d $(find franka_visualization)/launch/franka_visualization.rviz"/>

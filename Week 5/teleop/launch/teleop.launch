@@ -14,8 +14,9 @@
   </node>
   <node pkg="rviz" type="rviz" name="rviz_geomagic" output="screen" args="-d $(find teleop)/launch/omni_visualization.rviz" />
 
-  <rosparam param="source_list">[panda/joint_states]</rosparam>
-  <param name="panda_robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/urdf/panda-gazebo.urdf" />
+  <arg name="load_gripper" default="true" />
+  <rosparam param="source_list">[teleop/panda/joint_states]</rosparam>
+  <param name="panda_robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/robots/panda_arm.urdf.xacro hand:=$(arg load_gripper)" />
   <node name="joint_state_publisher_panda" pkg="joint_state_publisher" type="joint_state_publisher">
     <remap from="robot_description" to="panda_robot_description" />
     <remap from="joint_states" to="panda/joint_states" />

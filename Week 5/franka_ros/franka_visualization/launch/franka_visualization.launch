@@ -1,8 +1,9 @@
 <?xml version="1.0" ?>
 
 <launch>
+  <arg name="load_gripper" default="true" />
   <param name="rate" value="100" />
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/urdf/panda-gazebo.urdf" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/robots/panda_arm.urdf.xacro hand:=$(arg load_gripper)" />
   <rosparam param="source_list">[panda/joint_states]</rosparam>
   <node name="joint_state_publisher_panda" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher_panda" pkg="robot_state_publisher" type="robot_state_publisher" />
