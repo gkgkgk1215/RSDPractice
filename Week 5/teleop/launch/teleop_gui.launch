@@ -3,33 +3,30 @@
 <launch>
   <param name="rate" value="100" />
 
-  <rosparam param="geomagic_source_list">[phantom/joint_states]</rosparam>
   <param name="omni_robot_description" command="cat $(find omni_description)/urdf/omni.urdf" />
-  <node name="joint_state_publisher_geomagic" pkg="joint_state_publisher" type="joint_state_publisher" >
+  <node name="joint_state_publisher_gui_geomagic" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" >
     <remap from="robot_description" to="omni_robot_description" />
     <remap from="joint_states" to="omni/joint_states" />
-    <remap from="source_list" to="geomagic_source_list" />
   </node>
   <node name="robot_state_publisher_geomagic" pkg="robot_state_publisher" type="robot_state_publisher">
     <remap from="robot_description" to="omni_robot_description" />
     <remap from="joint_states" to="omni/joint_states" />
-    <remap from="source_list" to="geomagic_source_list" />
   </node>
   <node pkg="rviz" type="rviz" name="rviz_geomagic" output="screen" args="-d $(find teleop)/launch/omni_visualization.rviz" />
 
-  <rosparam param="panda_source_list">[teleop/panda/joint_states]</rosparam>
   <arg name="load_gripper" default="true" />
+  <rosparam param="source_list">[teleop/panda/joint_states]</rosparam>
   <param name="panda_robot_description" command="$(find xacro)/xacro --inorder $(find franka_description)/robots/panda_arm.urdf.xacro hand:=$(arg load_gripper)" />
   <node name="joint_state_publisher_panda" pkg="joint_state_publisher" type="joint_state_publisher">
     <remap from="robot_description" to="panda_robot_description" />
     <remap from="joint_states" to="panda/joint_states" />
-    <remap from="source_list" to="panda_source_list" />
   </node>
   <node name="robot_state_publisher_panda" pkg="robot_state_publisher" type="robot_state_publisher">
     <remap from="robot_description" to="panda_robot_description" />
     <remap from="joint_states" to="panda/joint_states" />
-    <remap from="source_list" to="panda_source_list" />
   </node>
   <node pkg="rviz" type="rviz" name="rviz_panda" output="screen" args="-d $(find teleop)/launch/panda_visualization.rviz" />
+  
+  
 </launch>
 

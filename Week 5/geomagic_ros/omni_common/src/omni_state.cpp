@@ -42,7 +42,7 @@ struct OmniState {
   hduQuaternion rot;
   double joints[6];
   hduVector3Dd force;   //3 element double vector force[0], force[1], force[2]
-  float thetas[7];
+  float thetas[6];
   int buttons[2];
   int buttons_prev[2];
   bool lock;
@@ -193,18 +193,17 @@ public:
 //    joint_state.position[5] = -state->thetas[6] - M_PI;
 
     joint_state.name[0] = "m1";
-    joint_state.position[0] = state->thetas[1];
+    joint_state.position[0] = state->thetas[0];
     joint_state.name[1] = "m2";
-    joint_state.position[1] = state->thetas[2];
+    joint_state.position[1] = state->thetas[1];
     joint_state.name[2] = "m3";
-    joint_state.position[2] = state->thetas[3];
+    joint_state.position[2] = state->thetas[2];
     joint_state.name[3] = "m4";
-    joint_state.position[3] = state->thetas[4];
+    joint_state.position[3] = state->thetas[3];
     joint_state.name[4] = "m5";
-    joint_state.position[4] = state->thetas[5];
+    joint_state.position[4] = state->thetas[4];
     joint_state.name[5] = "m6";
-    joint_state.position[5] = state->thetas[6];
-
+    joint_state.position[5] = state->thetas[5];
     joint_publisher.publish(joint_state);
 
     // Build the pose msg
@@ -246,10 +245,10 @@ HDCallbackCode HDCALLBACK omni_state_callback(void *pUserData)
   hdBeginFrame(hdGetCurrentDevice());
   // Get transform and angles
   hduMatrix transform;
-  hdGetDoublev(HD_CURRENT_TRANSFORM, transform);
-  hdGetDoublev(HD_CURRENT_JOINT_ANGLES, omni_state->joints);
-  hduVector3Dd gimbal_angles;
   hdGetDoublev(HD_CURRENT_GIMBAL_ANGLES, &(omni_state->joints[3]));
+  hdGetDoublev(HD_CURRENT_TRANSFORM, transform);
+  hdGetDoublev(HD_CURRENT_JOINT_ANGLES, omni_state->joints);  
+
   // Notice that we are inverting the Z-position value and changing Y <---> Z
   // Position
   omni_state->position = hduVector3Dd(transform[3][0], -transform[3][2], transform[3][1]);
