@@ -129,7 +129,7 @@
       <geometry>
 	<mesh filename="package://omni_description/meshes/pen.stl" />
       </geometry>
-      <material name="yellow" />
+      <material name="blue" />
     </visual>
   </link>
 </robot>
