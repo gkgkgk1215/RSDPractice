@@ -15,9 +15,9 @@ class Teleop:
         self.m = []     # "m" denotes master device (i.e. Geomagic Touch)
         self.s = []     # "s" denotes slave device (i.e. Panda robot arm)
         self._joint_names_geomagic = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6']
-        self._joint_names_panda = ['s1', 's2', 's3', 's4', 's5', 's6', 's7']
+        self._joint_names_panda = ['panda_joint1', 'panda_joint2', 'panda_joint3', 'panda_joint4', 'panda_joint5', 'panda_joint6', 'panda_joint7', 'panda_finger_joint1', 'panda_finger_joint2']
         self._joint_states_state_sub = rospy.Subscriber('/omni/joint_states', JointState, self._joint_states_callback, queue_size=1, tcp_nodelay=True)
-        self._set_joint_pub = rospy.Publisher('/panda/joint_states', JointState, latch=True, queue_size=1)
+        self._set_joint_pub = rospy.Publisher('/teleop/panda/joint_states', JointState, latch=True, queue_size=1)
 
         rospy.sleep(1)
         while not rospy.is_shutdown():
